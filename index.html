@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Introduction to Python</title>
+
+		<link rel="stylesheet" href="revealjs/css/reveal.css">
+		<link rel="stylesheet" href="revealjs/css/theme/simple.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'revealjs/css/print/pdf.css' : 'revealjs/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+          <h1>Introduction to Python</h1>
+          <h3>Managing Data and Research Materials</h3>
+          <p>January 17, 2019</p>
+          <p>
+            <small>David Naughton - UMN Libraries Web Development</small>
+          </p>
+          <p>
+            <small><a href="mailto:naughton@umn.edu">naughton@umn.edu</a></small>
+          </p>
+        </section>
+
+				<section>
+          <h2>Slides</h2>
+          <p><a href="https://z.umn.edu/pythonworkshop">z.umn.edu/pythonworkshop</a></p>
+				</section>
+
+				<section>
+          <h2>Why Python?</h2>
+				</section>
+
+				<section>
+          <h2>Python is fun!</h2>
+          <img src="https://imgs.xkcd.com/comics/python.png">
+          <p><a href="https://xkcd.com/353/">xkcd.com/353/</a></p>
+				</section>
+
+				<section>
+          <h2>Why Python? Seriously...</h2>
+          <ul>
+           <li class="fragment">Named after Monty Python's Flying Circus! (Sorry...)</li>
+           <li class="fragment">Not only one of the most popular languages, extremely popular for research computing.</li>
+           <li class="fragment"><a href="https://www.scipy.org/">SciPy</a> package collection, which includes <a href="http://www.numpy.org/">NumPy</a>.</li>
+           <li class="fragment">Open source</li>
+           <li class="fragment">Easy to learn and fun to use. Actually important.</li>
+          </ul>
+				</section>
+
+				<section>
+          <h2><a href="https://jupyter.org/">Jupyter Notebooks</a></h2>
+          <p>Text, images, and <em>executable</em> code, all in a single shareable object!</p>
+          <p class="fragment"><a href="https://nb.latis.umn.edu/">nb.latis.umn.edu</a></p>
+				</section>
+
+				<section>
+          <h2>Python 2 vs. 3</h2>  
+          <p>Python 2 was released in 2000, and will fall out of support in 2020. Python 3 was released in 2008, and is the future of the language. Use Python 3, unless you are using already-existing code in Python 2, or need a package (library) that does not support Python 3, a rare situation. 
+				</section>
+
+				<section>
+          <h2>Hello, World!</h2>
+					<pre class="fragment"><code data-noescape class="python">
+print('Hello, World!')
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Exercise: Lake Superior's Seiche</h2>
+          <p>A seiche is a standing wave in an enclosed or partially enclosed body of water.</p>
+          <p><a href="https://en.wikipedia.org/wiki/Seiche">Wikipedia: Seiche</a></p>
+				</section>
+
+				<section>
+          <h2>Lake Superior Water Levels</h2>
+          <p>
+            Get Lake Superior station number from
+            <a href="https://tidesandcurrents.noaa.gov/gldatums.html">NOAA Great Lakes Low Water Datums</a>,
+            then request an
+            <a href="https://opendap.co-ops.nos.noaa.gov/axis/webservices/waterlevelrawsixmin/index.jsp">
+              International Great Lakes Datum (IGLD)
+            </a>.
+          </p>  
+				</section>
+
+				<section>
+          <h2>Reading Files</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open('CO-OPS__9099064__wl.csv') as file:
+    for line in file:
+        print(line)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Variables</h2>
+					<pre class="fragment"><code data-noescape class="python">
+file_name = 'CO-OPS__9099064__wl.csv'
+with open(file_name) as file:
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Types &amp; Objects</h2>
+					<p class="fragment">Everything in Python is some <em>type</em> of <em>object</em>. Objects contain <em>attributes</em>, usually data and related functions, called <em>methods</em>.</p>
+					<p class="fragment">Python is <em>dynamically typed</em> because it determines these types at runtime.</p>
+					<pre class="fragment"><code data-noescape class="python">
+file_name = 'CO-OPS__9099064__wl.csv'
+print(type(file_name))
+with open(file_name) as file:
+    print(type(file))
+    for line in file:
+        print(type(line))
+        print(line)
+        break
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Strong Typing</h2>
+					<p class="fragment">Python is also <em>strongly typed</em>. For example, some operations require operands of specific types.</p>
+					<p class="fragment">What happens when we do this?</p>
+					<pre class="fragment"><code data-noescape class="python">
+file_name + 3
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Arrays</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    for line in file:
+        row = line.strip().split(',')
+        print(type(row))
+        print(row)
+        print(row[0], row[1])
+        break
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>What about the header?</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    line_count = -1
+    for line in file:
+        line_count = line_count + 1
+        if line_count == 0:
+            continue
+        row = line.strip().split(',')
+        print(row[0], row[1])
+        break
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Python csv Package</h2>
+					<pre class="fragment"><code data-noescape class="python">
+import csv
+with open(file_name) as file:
+    has_header = csv.Sniffer().has_header(file.read(1024))
+    file.seek(0)  # Rewind.
+    reader = csv.reader(file)
+    if has_header:
+        next(reader)  # Skip header row.
+    for row in reader:
+        print(row[0], row[1])
+        break
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Dictionaries</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(row)
+        print(row['date_time'], row['water_level'])
+        break
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Doing stuff with water levels...</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    reader = csv.DictReader(file)
+    water_levels = []
+    for row in reader:
+        water_levels.append(row['water_level'])
+    water_levels_sum = sum(water_levels)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Will this fix our problem?</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    reader = csv.DictReader(file)
+    water_levels = []
+    for row in reader:
+        water_level = float(row['water_level'])
+        water_levels.append(water_level)
+    water_levels_sum = sum(water_levels)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Investigating further...</h2>
+					<pre class="fragment"><code data-noescape class="python">
+with open(file_name) as file:
+    reader = csv.DictReader(file)
+    water_levels = []
+    for row in reader:
+        if not (re.match(r'^\d+', row['water_level'])):
+            print('"{}"'.format(row['water_level']))
+            break
+        water_level = float(row['water_level'])
+        water_levels.append(water_level)
+    water_levels_sum = sum(water_levels)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Functions</h2>  
+					<pre class="fragment"><code data-noescape class="python">
+def hello(to):
+  return 'Hello, {}!'.format(to)
+					</code></pre>
+          <p class="fragment">Indentation level, i.e. <em>whitespace</em>, is significant!</p>
+					<pre class="fragment"><code data-noescape class="python">
+msg = hello('World')
+print(msg)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Functional Programming</h2>
+					<p class="fragment"><a href="https://en.wikipedia.org/wiki/Functional_programming"><em>Functional programming (FP)</em></a> encourages using <a href="https://en.wikipedia.org/wiki/Pure_function"><em>pure functions</em></a>, which always return the same output for the same input, without side effects. FP discourages unnecessary state and state changes.</p> 
+					<p class="fragment">Are <strong>print</strong> and <strong>hello</strong> pure functions?</p>
+					<pre class="fragment"><code data-noescape class="python">
+msg = hello('World')
+type(msg)
+retval = print('Hello, World!')
+type(retval)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>FP vs. OOP</h2>
+					<p>Like most popular languages, Python supports both <a href="https://en.wikipedia.org/wiki/Functional_programming"><em>functional programming (FP)</em></a> and <a href="https://en.wikipedia.org/wiki/Object-oriented_programming"><em>object-orientend programming (OOP)</em></a>.</p> 
+					<p class="fragment"><a href="https://www.quora.com/Computer-Programming/When-is-OOP-better-than-FP-and-vice-versa">When is OOP better than FP and vice-versa?</a> It <em>depends</em>. Here I focus on FP, because I find it a fast start and a good fit for research.</p>
+				</section>
+
+				<section>
+          <h2>Modules &amp; Namespaces</h2>  
+          <p class="fragment">In file <strong>hello.py</strong>:</p>
+					<pre class="fragment"><code data-noescape class="python">
+def msg(to):
+  return 'Hello, {}!'.format(to)
+					</code></pre>
+          <p class="fragment">In file <strong>goodbye.py</strong>:</p>
+					<pre class="fragment"><code data-noescape class="python">
+def msg(to):
+  return 'Goodbye, {}!'.format(to)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Types Again</h2>
+					<pre class="fragment"><code data-noescape class="python">
+import hello
+import goodbye
+					</code></pre>
+					<pre class="fragment"><code data-noescape class="python">
+type(hello)
+type(hello.msg)
+type(goodbye)
+type(goodbye.msg)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Packages - Built-in</h2>  
+					<p>Python has a huge number of <a href="https://docs.python.org/3/library/index.html">built-in packages</a>, its <em>standard library</em>, which is why it advertises itself as <em>batteries included</em>. Some are always available. Others we must import.</p>
+					<pre class="fragment"><code data-noescape class="bash">
+import random
+rand = random.randint(1,10)
+rand
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Packages - PyPI</h2>  
+					<p>The <a href="https://pypi.python.org/pypi">Python Package Index (PyPI)</a> has even more packages. Install with <a href="https://pypi.python.org/pypi/pip">pip</a>:</p>
+					<pre class="fragment"><code data-noescape class="bash">
+!pip install --user simplejson
+					</code></pre>
+					<pre class="fragment"><code data-noescape class="python">
+import simplejson as json
+json.dumps({"c": 2, "b": 1, "a": 0}, sort_keys=True)
+					</code></pre>
+					<p class="fragment"><a href="http://pythonwheels.com/">Python Wheels</a> gives a list of the most popular and high-quality of these community packages.</p>
+				</section>
+
+				<section>
+          <h2>Packages - Custom</h2>  
+					<p>A <a href="https://python-packaging.readthedocs.io/en/latest/minimal.html">minimal structure</a> may be all you need. Example:</p>
+					<pre class="fragment"><code data-noescape class="bash">
+messages/
+    messages/
+        __init__.py
+    setup.py
+					</code></pre>
+					<p class="fragment">For more complex needs, see the <a href="https://python-packaging-user-guide.readthedocs.io/">Python Packaging User Guide</a>.</p>
+				</section>
+
+				<section>
+          <h2>Packages - Custom - __init__.py</h2>  
+					<pre class="fragment"><code data-noescape class="python">
+def hello(to):
+  return 'Hello, {}!'.format(to)
+
+def goodbye(to):
+  return 'Goodbye, {}!'.format(to)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Packages - Custom - setup.py</h2>  
+					<pre class="fragment"><code data-noescape class="python">
+from setuptools import setup
+
+setup(name='messages',
+      version='0.0',
+      description='Generates custom messages.',
+      author='David Naughton',
+      author_email='naughton@umn.edu',
+      license='MIT',
+      packages=['messages'],
+      zip_safe=False)
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Packages - Custom - Install</h2>  
+          <p>Can't get this to work in Jupyter, so we'll use a terminal:</p>
+					<pre class="fragment"><code data-noescape class="bash">
+pip install -e /path/to/messages
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>Packages - Custom - Sharing</h2>  
+          <p class="fragment"><a href="https://github.com/UMNLibraries/pureapi">github.com/UMNLibraries/pureapi</a></p>
+					<pre class="fragment"><code data-noescape class="bash">
+!pip install --user git+https://github.com/UMNLibraries/pureapi.git
+					</code></pre>
+					<pre class="fragment"><code data-noescape class="python">
+import pureapi
+					</code></pre>
+				</section>
+
+				<section>
+          <h2>github.umn.edu</h2>  
+          <p><a href="https://github.com">github.com</a> is free for open source projects. We also have <a href="https://github.umn.edu">github.umn.edu</a>, free to anyone and everyone with a UMN internet ID.</p>
+				</section>
+
+				<section>
+          <h2>Code Organization &amp; Reuse</h2>
+          <p>So far we've covered not only how to use Python, but how to do so in a way that makes code easier to read, understand, organize, and reuse.</p>
+				</section>
+
+				<section>
+          <h2>Further Learning</h2>
+          <ul>
+           <li class="fragment">#python channel on <a href="https://tech-people-umn.slack.com/">Tech-People UMN Slack</a></li>
+           <li class="fragment"><a href="https://umnhackerhours.github.io/">UMN Hacker Hours</a> every Wednesday!</li>
+           <li class="fragment">UMN Libraries <a href="http://www.lib.umn.edu/get/9103">Safari</a> and <a href="http://www.lib.umn.edu/get/12658">Books 24x7</a> e-book collections.</li>
+           <li class="fragment"><a href="http://www.diveintopython3.net/index.html">Dive Into Python</a></li>
+           <li class="fragment"><a href="https://learnpythonthehardway.org/">Learn Python the Hard Way</a></li>
+           <li class="fragment"><a href="https://docs.python.org/3/index.html">Official Python Documentation</a></li>
+           <li class="fragment"><a href="https://www.python.org/community/irc/">Python IRC Channels</a></li>
+          </ul>
+				</section>
+
+				<section>
+          <h2>Questions &amp; Extended Exercises</h2>
+				</section>
+
+				<section>
+          <h2>Thank you!</h2>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="revealjs/lib/js/head.min.js"></script>
+		<script src="revealjs/js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'revealjs/plugin/markdown/marked.js' },
+					{ src: 'revealjs/plugin/markdown/markdown.js' },
+					{ src: 'revealjs/plugin/notes/notes.js', async: true },
+					{ src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
